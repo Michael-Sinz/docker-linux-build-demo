@@ -1,0 +1,11 @@
+#!/bin/bash -x
+OUT_DIR=/out/linux
+
+mkdir -p ${OUT_DIR}
+
+# Get our kernel config and put it into the output directory
+cp $(dirname $0)/kernel.config ${OUT_DIR}/.config
+
+cd /src/linux
+#make abs_output=${OUT_DIR} menuconfig
+/usr/bin/time -v make abs_output=${OUT_DIR} -j $(nproc)

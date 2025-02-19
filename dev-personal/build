@@ -1,0 +1,8 @@
+#!/bin/bash -x
+exec docker build \
+    --build-arg _UID=$(id -u) \
+    --build-arg _USER=$(id -u -n) \
+    --build-arg _GID=$(id -g) \
+    --build-arg _GROUP=$(id -g -n) \
+    -t dev-personal \
+    $(dirname $0)

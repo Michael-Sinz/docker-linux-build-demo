@@ -1,0 +1,17 @@
+#!/bin/bash
+_dir=$(cd $(dirname $0); pwd)
+
+# Just to make sure these exists (they should
+# albeit out may not
+mkdir -p ${_dir}/src ${_dir}/out ${_dir}/home
+
+docker run --rm \
+    --interactive \
+    --tty \
+    --user $(id -u):$(id -g) \
+    --hostname dev-$(hostname) \
+    --volume ${_dir}/src:/src:ro \
+    --volume ${_dir}/out:/out \
+    --volume ${_dir}/home:/home/build:ro \
+    dev-personal \
+    "$@"

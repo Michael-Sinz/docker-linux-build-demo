@@ -1,0 +1,18 @@
+#!/bin/bash -x
+_DIR=$(cd $(dirname $0); pwd)
+
+# First clone the linux code into source tree
+time ${_DIR}/src/clone-linux
+
+# Now, lets build the containers (as needed)
+# Normally the base container would not be built
+# locally but it can be and it is not too bad
+time ${_DIR}/dev-base/build
+
+# The personalized container is a nice to have
+# and very small addition to the main container.
+# Just adds the user
+time ${_DIR}/dev-personal/build
+
+# Now to run the actual build script using the container
+time ${_DIR}/dev /home/build/build-kernel

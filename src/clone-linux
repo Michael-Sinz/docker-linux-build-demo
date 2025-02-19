@@ -1,0 +1,6 @@
+#!/bin/bash
+cd $(dirname $0)
+[[ ! -d linux ]] || exit 0
+mkdir linux
+cd linux
+git clone -b v6.13 https://github.com/torvalds/linux.git .

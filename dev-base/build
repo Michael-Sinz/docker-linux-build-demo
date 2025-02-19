@@ -1,0 +1,4 @@
+#!/bin/bash -x
+exec docker build \
+    -t dev-base \
+    $(dirname $0)
