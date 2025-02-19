@@ -155,6 +155,19 @@ complete in my WSL Linux Docker environment.
 All of this would likely be faster if we had a real Linux machine and not
 a WSL Linux.
 
+### Interactive use
+
+The container is very usable interactively via running the "dev" script with
+no options or with the option of what you want to do (the command).
+
+For example, just doing `./dev bash` will get you into a bash terminal within
+the container and the same environment set up as the build would.
+
+This allows debugging and even container connected debugging if you have
+code that needs to run within the environment.  (This example is building
+a kernel so that is beyond the scope of running within a container but
+rather requires a VM to do the testing)
+
 ### Example output after a completed build (see overheads)
 
 Running the `build` script:
@@ -165,8 +178,8 @@ Running the `build` script:
 + _DIR=/home/msinz/docker-linux-build-demo
 + /home/msinz/docker-linux-build-demo/src/clone-linux
 
-real	0m0.003s
-user	0m0.002s
+real	0m0.004s
+user	0m0.003s
 sys	0m0.000s
 + /home/msinz/docker-linux-build-demo/dev-base/build
 ++ dirname /home/msinz/docker-linux-build-demo/dev-base/build
@@ -196,9 +209,9 @@ sys	0m0.000s
 #6 naming to docker.io/library/dev-base done
 #6 DONE 0.0s
 
-real	0m0.619s
-user	0m0.102s
-sys	0m0.112s
+real	0m0.609s
+user	0m0.172s
+sys	0m0.049s
 + /home/msinz/docker-linux-build-demo/dev-personal/build
 ++ id -u
 ++ id -u -n
@@ -234,13 +247,14 @@ sys	0m0.112s
 #8 exporting to image
 #8 exporting layers done
 #8 writing image sha256:fa719e66e8fd6354635a528722915c22914495e104230ab5ce1ee3ee29a72139 done
-#8 naming to docker.io/library/dev-personal 0.0s done
+#8 naming to docker.io/library/dev-personal done
 #8 DONE 0.0s
 
-real	0m0.568s
-user	0m0.122s
-sys	0m0.062s
+real	0m0.576s
+user	0m0.094s
+sys	0m0.095s
 + /home/msinz/docker-linux-build-demo/dev /home/build/build-kernel
++ docker run --rm --interactive --tty --hostname dev-CPC-msinz-UHWP8 --volume /home/msinz/docker-linux-build-demo/src:/src:ro --volume /home/msinz/docker-linux-build-demo/out:/out --volume /home/msinz/docker-linux-build-demo/home:/home/build:ro dev-personal /home/build/build-kernel
 + OUT_DIR=/out/linux
 + mkdir -p /out/linux
 ++ dirname /home/build/build-kernel
@@ -258,22 +272,22 @@ mkdir -p /out/linux/tools/objtool && make O=/out/linux subdir=tools/objtool --no
 Kernel: arch/x86/boot/bzImage is ready  (#2)
 make[1]: Leaving directory '/out/linux'
 	Command being timed: "make abs_output=/out/linux -j 16"
-	User time (seconds): 12.21
-	System time (seconds): 3.49
-	Percent of CPU this job got: 314%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.99
+	User time (seconds): 12.51
+	System time (seconds): 3.47
+	Percent of CPU this job got: 323%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.94
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 35760
+	Maximum resident set size (kbytes): 35852
 	Average resident set size (kbytes): 0
-	Major (requiring I/O) page faults: 9
-	Minor (reclaiming a frame) page faults: 727707
-	Voluntary context switches: 5830
-	Involuntary context switches: 2566
+	Major (requiring I/O) page faults: 12
+	Minor (reclaiming a frame) page faults: 727161
+	Voluntary context switches: 6110
+	Involuntary context switches: 3294
 	Swaps: 0
-	File system inputs: 0
+	File system inputs: 16
 	File system outputs: 3560
 	Socket messages sent: 0
 	Socket messages received: 0
@@ -281,7 +295,7 @@ make[1]: Leaving directory '/out/linux'
 	Page size (bytes): 4096
 	Exit status: 0
 
-real	0m5.860s
-user	0m0.025s
-sys	0m0.026s
+real	0m5.818s
+user	0m0.004s
+sys	0m0.045s
 ```

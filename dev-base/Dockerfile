@@ -12,6 +12,7 @@ RUN tdnf install --assumeyes \
     bc \
     binutils \
     bison \
+    ca-certificates \
     elfutils-devel \
     fakeroot \
     flex \
@@ -30,6 +31,7 @@ RUN tdnf install --assumeyes \
     openssl-libs \
     rpm-build \
     rpm-devel \
+    rpmdevtools \
     rsync \
     rust \
     sed \

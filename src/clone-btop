@@ -1,0 +1,6 @@
+#!/bin/bash
+cd $(dirname $0)
+[[ ! -d btop ]] || exit 0
+mkdir btop
+cd btop
+git clone -b v1.4.0 https://github.com/aristocratos/btop.git .

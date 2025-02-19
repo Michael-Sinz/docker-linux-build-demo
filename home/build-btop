@@ -1,0 +1,9 @@
+#!/bin/bash -x
+# An example of building btop - a very "different" build process
+
+OUT_DIR=/out/btop/build
+
+mkdir -p ${OUT_DIR}
+
+cd /src/btop
+/usr/bin/time -v make BUILDDIR=/out/btop/build TARGETDIR=/out/btop/bin -j $(nproc)
